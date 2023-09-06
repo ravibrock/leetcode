@@ -1,7 +1,6 @@
-import re
 class Solution:
     def isPalindrome(self, s: str) -> bool:
-        s = re.sub(r'\W+', '', s).lower().replace("_", "")
+        s = [i for i in s.lower() if i.isalnum()]
         
         if len(s) == 0:
             return True
