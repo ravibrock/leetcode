@@ -1,6 +1,7 @@
 class Solution:
     def __init__(self):
         self.ls = []
+        self.fin = []
     
     def traverse(self, root, level):
         if root.left:
@@ -11,14 +12,12 @@ class Solution:
             self.traverse(root.right, level + 1)
         
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-        if not root: return []
-        else: self.ls.append((root.val, 0))
+        if not root: return self.fin
 
+        self.fin.append([root.val])
         self.traverse(root, 1)
-
-        fin_ls = []
         for i in self.ls:
-            if len(fin_ls) > i[1]: fin_ls[i[1]].append(i[0])
-            else: fin_ls.append([i[0]])
+            if len(self.fin) > i[1]: self.fin[i[1]].append(i[0])
+            else: self.fin.append([i[0]])
 
-        return fin_ls
+        return self.fin
