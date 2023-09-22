@@ -6,10 +6,7 @@ class Solution:
            node = queue.pop()
            if node[0] == 0: solutions.append(node[1])
            elif node[0] > 0:
-               for n in candidates: queue.append((node[0] - n, node[1] + [n]))
+               for n in candidates:
+                   if n >= node[1][-1]: queue.append((node[0] - n, node[1] + [n]))
        
-       clean_sol = []
-       for solution in solutions:
-           sort = sorted(solution)
-           if sort not in clean_sol: clean_sol.append(sort)
-       return clean_sol
+       return solutions
