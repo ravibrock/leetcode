@@ -5,6 +5,9 @@ on:
   schedule:
     - cron: '0 0 * * *'
 
+env:
+  FILTER_BRANCH_SQUELCH_WARNING: 1
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,3 +20,14 @@ jobs:
           leetcode-session: ${{ secrets.LEETCODE_SESSION }}
           filter-duplicate-secs: 3600
           commit-header: '[LC Sync]'
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Clean
+        run: |
+          git --version
+          git config user.name 'ravibrock'
+          git config user.email '66334356+ravibrock@users.noreply.github.com'
+          git filter-branch --commit-filter 'git_commit_non_empty_tree "$@"' HEAD
+          git push --force
